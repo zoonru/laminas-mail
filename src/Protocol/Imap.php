@@ -551,7 +551,6 @@ class Imap
         $items = (array) $items;
         $itemList = $this->escapeList($items);
         
-        $debug = in_array('BODY.PEEK[HEADER]', $items);
         $items = array_map(function($item){return str_replace('BODY.PEEK', 'BODY', $item);}, $items);
 
         $tag = null;  // define $tag variable before first use
@@ -610,14 +609,6 @@ class Imap
             if ($to === null && ! is_array($from) && ($uid ? $tokens[2][$uidKey] == $from : $tokens[0] == $from)) {
                 // we still need to read all lines
                 while (! $this->readLine($tokens, $tag)) {
-                }
-                
-                if (empty($data)) {
-                   exit;
-                }
-                
-                if ($debug) {
-                    exit;
                 }
                 
                 return $data;
